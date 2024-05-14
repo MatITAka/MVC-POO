@@ -1,7 +1,6 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <!-- Login Form -->
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="card-title text-center">Nice to see you again</h2>
@@ -14,18 +13,23 @@
                             <label for="login-password">Password:</label>
                             <input type="password" name="password" id="login-password" class="form-control">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <input type="submit" value="Login" class="btn btn-primary btn-block">
+                        </div>
+                        <div class="form-group mt-3">
+                            <a href="/forgot-password" class="btn btn-link btn-block">Forgot password?</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
         <div class="col-md-1 d-flex align-items-center justify-content-center">
             <div class="border-right border-dark h-75"></div>
         </div>
+
+
         <div class="col-md-5">
-            <!-- Registration Form -->
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-center">Join us</h2>
@@ -42,7 +46,7 @@
                             <label for="register-confirm-password">Confirm Password:</label>
                             <input type="password" name="confirm_password" id="register-confirm-password" class="form-control">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <input type="submit" value="Register" class="btn btn-primary btn-block">
                         </div>
                     </form>

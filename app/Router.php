@@ -1,5 +1,4 @@
 <?php
-// app/Router.php
 
 namespace App;
 

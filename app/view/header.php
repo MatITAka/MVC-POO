@@ -12,7 +12,13 @@
                     <a class="nav-link" href="/contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login 📝</a>
+
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <a class="nav-link" href="/logout">Logout 🚪</a>
+                    <?php else: ?>
+                        <a class="nav-link" href="/login">Login/Register 📝</a>
+                    <?php endif; ?>
+
                 </li>
             </ul>
         </div>
@@ -20,3 +26,4 @@
 </header>
 
 <link rel="stylesheet" href="../../public/css/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
