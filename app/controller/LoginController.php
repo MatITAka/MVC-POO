@@ -28,17 +28,17 @@ class LoginController
 
             try {
                 if ($this->model->verifyCredentials($username, $password)) {
-                    // Store the username in a session variable
                     $_SESSION['username'] = $username;
 
                     echo "Login successful!";
                     header('Location: /');
-                    exit;
                 } else {
-                    throw new Exception('Invalid username or password');
+                    $_SESSION['login_error'] = 'Invalid username or password';
+                    header('Location: /login');
                 }
+                exit;
             } catch (Exception $e) {
-                // Display the error message
+
                 echo 'Error: ' . $e->getMessage();
             }
         }

@@ -21,10 +21,17 @@ class RegisterController
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
             $confirm_password = filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_STRING);
 
+            if ($this->model->usernameExists($username)) {
+                $_SESSION['error'] = "Ce nom d'utilisateur est déjà pris";
+                header('Location: /login');
+                exit;
+            }
+
+
             if ($password === $confirm_password) {
                 $this->model->registerUser($username, $password);
             } else {
-                echo 'Passwords do not match';
+                $_SESSION['error'] = 'Passwords do not match';
             }
         }
 

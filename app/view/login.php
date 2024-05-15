@@ -7,17 +7,28 @@
                     <form action="/login" method="post">
                         <div class="form-group">
                             <label for="login-username">Username:</label>
-                            <input type="text" name="username" id="login-username" class="form-control">
+                            <input type="text" name="username" id="login-username" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="login-password">Password:</label>
-                            <input type="password" name="password" id="login-password" class="form-control">
+                            <input type="password" name="password" id="login-password" class="form-control" required>
                         </div>
                         <div class="form-group mt-3">
                             <input type="submit" value="Login" class="btn btn-primary btn-block">
                         </div>
                         <div class="form-group mt-3">
                             <a href="/forgot-password" class="btn btn-link btn-block">Forgot password?</a>
+                        </div>
+
+                        <div class="alert alert-danger mt-3"
+                            <?php if (!isset($_SESSION['login_error'])) {
+                                echo 'style="display: none;"';
+                            } ?>>
+                            <?php
+                            if (isset($_SESSION['login_error'])) {
+                                echo $_SESSION['login_error'];
+                                unset($_SESSION['login_error']);
+                            } ?>
                         </div>
                     </form>
                 </div>
@@ -36,18 +47,28 @@
                     <form action="/register" method="post">
                         <div class="form-group">
                             <label for="register-username">Username:</label>
-                            <input type="text" name="username" id="register-username" class="form-control">
+                            <input type="text" name="username" id="register-username" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="register-password">Password:</label>
-                            <input type="password" name="password" id="register-password" class="form-control">
+                            <input type="password" name="password" id="register-password" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="register-confirm-password">Confirm Password:</label>
-                            <input type="password" name="confirm_password" id="register-confirm-password" class="form-control">
+                            <input type="password" name="confirm_password" id="register-confirm-password" class="form-control" required>
                         </div>
                         <div class="form-group mt-3">
                             <input type="submit" value="Register" class="btn btn-primary btn-block">
+                        </div>
+                        <div class="alert alert-danger mt-3"
+                            <?php if (!isset($_SESSION['error'])) {
+                                echo 'style="display: none;"';
+                            } ?>>
+                            <?php
+                            if (isset($_SESSION['error'])) {
+                                echo $_SESSION['error'];
+                                unset($_SESSION['error']);
+                            } ?>
                         </div>
                     </form>
                 </div>

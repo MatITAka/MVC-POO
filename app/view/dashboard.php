@@ -349,7 +349,7 @@
                     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
                         <svg class="bi"><use xlink:href="#calendar3"/></svg>
                         This week
-                        
+
                     </button>
                 </div>
             </div>

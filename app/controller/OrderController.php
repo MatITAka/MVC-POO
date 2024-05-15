@@ -33,25 +33,9 @@ class OrderController
 
                 header('Location:/order');
             } catch (PDOException $e) {
-                // Handle exception
                 error_log("Database error: " . $e->getMessage());
-                // Redirect to an error page or display an error message
+
             }
-        }
-    }
-
-    public function getOrders()
-    {
-        try {
-            $pdo = require __DIR__ . '/../model/dbconfig.php';
-            $stmt = $pdo->prepare('SELECT * FROM commande');
-            $stmt->execute();
-
-            return $stmt->fetchAll();
-        } catch (PDOException $e) {
-            // Handle exception
-            error_log("Database error: " . $e->getMessage());
-            // Redirect to an error page or display an error message
         }
     }
 

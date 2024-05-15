@@ -27,9 +27,8 @@ class UserController
 
             return $stmt->fetchAll();
         } catch (PDOException $e) {
-            // Handle exception
             error_log("Database error: " . $e->getMessage());
-            // Redirect to an error page or display an error message
+
         }
     }
 }

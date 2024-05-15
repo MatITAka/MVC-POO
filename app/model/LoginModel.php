@@ -3,6 +3,7 @@
 namespace App\model;
 
 use PDO;
+use Exception;
 
 class LoginModel
 {
@@ -14,24 +15,22 @@ class LoginModel
 
     public function verifyCredentials($username, $password): bool
     {
-        // Prepare the SQL statement
+
         $stmt = $this->pdo->prepare("SELECT user_password FROM userinfo WHERE user_username = :username");
 
-        // Bind the parameters
+
         $stmt->bindParam(':username', $username);
 
-        // Execute the statement
+
         $stmt->execute();
 
-        // Fetch the user data
+
         $user = $stmt->fetch();
 
-        // If the user exists and the password is correct, return true
         if ($user && password_verify($password, $user['user_password'])) {
             return true;
         }
 
-        // If the user doesn't exist or the password is incorrect, return false
         return false;
     }
 
@@ -40,7 +39,10 @@ class LoginModel
         $sql = "INSERT INTO userinfo (user_username, user_password) VALUES (:username, :password)";
         $stmt = $this->pdo->prepare($sql);
 
-        // Hash the password before storing it in the database
+        if ($stmt === false) {
+            throw new Exception('Failed to prepare SQL statement');
+        }
+
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt->execute([
@@ -49,7 +51,15 @@ class LoginModel
         ]);
     }
 
-    public function emailExists($email)
+    public function usernameExists($username): bool
     {
+        $stmt = $this->pdo->prepare('SELECT * FROM userinfo WHERE user_username = :username');
+
+        if ($stmt === false) {
+            throw new Exception('Failed to prepare SQL statement');
+        }
+
+        $stmt->execute(['username' => $username]);
+        return $stmt->fetch() !== false;
     }
 }
