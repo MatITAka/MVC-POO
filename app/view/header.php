@@ -9,7 +9,7 @@
                     <a class="nav-link" href="/about">About ℹ️</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                    <a class="nav-link" href="/contact">Contact 📢</a>
                 </li>
                 <li class="nav-item">
 
@@ -20,6 +20,28 @@
                     <?php endif; ?>
 
                 </li>
+
+                <li class="nav-item">
+
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <a class="nav-link" href="/dashboard">Dashboard 📈</a>
+                    <?php else: ?>
+
+                    <?php endif; ?>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <a class="nav-link" href="/order">Order 📦</a>
+                    <?php else: ?>
+
+                    <?php endif; ?>
+
+                </li>
+
+
             </ul>
         </div>
     </nav>

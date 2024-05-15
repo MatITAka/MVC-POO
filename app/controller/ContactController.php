@@ -1,5 +1,4 @@
 <?php
-// app/controller/ContactController.php
 
 namespace App\controller;
 
@@ -13,13 +12,13 @@ class ContactController
 
     public function submitForm()
     {
-        // Get the form data
+
         $name = $_POST['name'];
         $email = $_POST['email'];
         $message = $_POST['message'];
 
-        // Prepare the email
-        $to = 'm.slyemi@it-students.fr'; // Replace with your email
+
+        $to = '#'; // Replace with your email
         $subject = 'New Contact Form Submission';
         $headers = "From: $email" . "\r\n" .
             "Reply-To: $email" . "\r\n" .
@@ -31,7 +30,7 @@ class ContactController
             "Email: $email\n\n".
             "Message:\n$message\n";
 
-        // Send the email
+
         if(mail($to, $subject, $body, $headers)){
             echo 'Message sent successfully';
         } else{

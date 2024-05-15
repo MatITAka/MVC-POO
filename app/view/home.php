@@ -14,7 +14,6 @@
     </div>
 </section>
 
-<!-- About Section -->
 <section class="py-5 hero text-center">
     <div class="container">
         <h2>About Us</h2>
@@ -22,7 +21,6 @@
     </div>
 </section>
 
-<!-- Services Section -->
 <section id="services" class="bg-light py-5">
     <div class="container py-3">
         <h2 class="text-center mb-3">Our Services</h2>
@@ -46,7 +44,7 @@
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
-            <img src="../../public/images/4_COUNTY-COURT-HOUSE_NEW-YORK_HAUTEVILLE_1-500x333.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            <img src="../../public/images/4_COUNTY-COURT-HOUSE_NEW-YORK_HAUTEVILLE_1-500x333.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="333" loading="lazy">
         </div>
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Responsive left-aligned hero with image</h1>
