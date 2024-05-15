@@ -37,9 +37,6 @@ $router->get('/logout', [$loginController, 'logout']);
 $router->get('/forgot-password', [$loginController, 'forgotPassword']);
 $router->get('/dashboard', [$userController, 'index']);
 $router->get('/order', [$orderController, 'index']);
-$router->post('/order', [$orderController, 'createOrder']);
-
-
-
+$router->post('/createOrder', [$orderController, 'createOrder']);
 
 $router->run();

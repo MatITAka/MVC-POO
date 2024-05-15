@@ -2,6 +2,8 @@
 
 namespace App\controller;
 
+use PDOException;
+
 class OrderController
 {
     public function index()
@@ -16,27 +18,42 @@ class OrderController
 
     }
 
-    public function createOrder(){
-
+    public function createOrder()
+    {
         if (isset($_POST['submit'])) {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $address = $_POST['address'];
-            $city = $_POST['city'];
-            $state = $_POST['state'];
-            $zip = $_POST['zip'];
-            $product = $_POST['product'];
-            $quantity = $_POST['quantity'];
+            $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
+            $location = $_POST['address'] . ' ' . $_POST['country'] . ' ' . $_POST['city'];
             $price = $_POST['price'];
-            $total = $_POST['total'];
-            $payment = $_POST['payment'];
-            $status = $_POST['status'];
-            $date = $_POST['date'];
-            $time = $_POST['time'];
-            $pdo = require_once __DIR__ . '/../model/dbconfig.php';
-            $stmt = $pdo->prepare('INSERT INTO orders (name, email, address, city, state, zip, product, quantity, price, total, payment, status, date, time) VALUES (:name, :email, :address, :city, :state, :zip, :product, :quantity, :price, :total, :payment, :status, :date, :time)');
-            $stmt->execute(['name' => $name, 'email' => $email, 'address' => $address, 'city' => $city, 'state' => $state, 'zip' => $zip, 'product' => $product, 'quantity' => $quantity, 'price' => $price, 'total' => $total, 'payment' => $payment, 'status' => $status, 'date' => $date, 'time' => $time]);
-            header('Location: /order');
+            $date = date('Y-m-d H:i:s');
+
+            try {
+                $pdo = require __DIR__ . '/../model/dbconfig.php';
+                $stmt = $pdo->prepare('INSERT INTO commande (order_name, order_location, order_price, order_date) VALUES (:name, :location, :price, :date)');
+                $stmt->execute(['name' => $name, 'location' => $location, 'price' => $price, 'date' => $date]);
+
+                header('Location:/order');
+            } catch (PDOException $e) {
+                // Handle exception
+                error_log("Database error: " . $e->getMessage());
+                // Redirect to an error page or display an error message
+            }
         }
     }
+
+    public function getOrders()
+    {
+        try {
+            $pdo = require __DIR__ . '/../model/dbconfig.php';
+            $stmt = $pdo->prepare('SELECT * FROM commande');
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            // Handle exception
+            error_log("Database error: " . $e->getMessage());
+            // Redirect to an error page or display an error message
+        }
+    }
+
+
 }
