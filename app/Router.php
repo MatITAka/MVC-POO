@@ -19,14 +19,20 @@ class Router
     public function run()
     {
         $method = $_SERVER['REQUEST_METHOD'];
-        $path = $_SERVER['REQUEST_URI'];
+        $uri = $_SERVER['REQUEST_URI'];
 
-        if (!isset($this->routes[$method][$path])) {
-            http_response_code(404);
-            echo "404 Not Found";
-            return;
+        foreach ($this->routes[$method] as $routePattern => $callback) {
+            $routePattern = str_replace('/', '\/', $routePattern);
+            $routePattern = preg_replace('/\{[a-z]+\}/', '([a-z0-9]+)', $routePattern);
+
+            if (preg_match('/^' . $routePattern . '$/', $uri, $matches)) {
+                array_shift($matches); // remove the first element which is the full string match
+                call_user_func_array($callback, $matches);
+                return;
+            }
         }
 
-        call_user_func($this->routes[$method][$path]);
+        http_response_code(404);
+        echo "404 Not Found";
     }
 }

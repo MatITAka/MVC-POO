@@ -4,37 +4,45 @@ namespace App\controller;
 
 class ContactController
 {
-    public function index()
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    public function index(): void
     {
         $content = __DIR__ . '/../view/contact.php';
         include __DIR__ . '/../view/layout.php';
     }
 
-    public function submitForm()
+    public function submitForm(): void
     {
-
         $name = $_POST['name'];
         $email = $_POST['email'];
         $message = $_POST['message'];
+        $date = date('Y-m-d H:i:s');
 
+        $stmt = $this->pdo->prepare("INSERT INTO messages (name, email, message, date) VALUES (:name, :email, :message, :date)");
 
-        $to = '#'; // Replace with your email
-        $subject = 'New Contact Form Submission';
-        $headers = "From: $email" . "\r\n" .
-            "Reply-To: $email" . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':message', $message);
+        $stmt->bindParam(':date', $date);
 
-        $body = "You have received a new message from your website contact form.\n\n".
-            "Here are the details:\n\n".
-            "Name: $name\n\n".
-            "Email: $email\n\n".
-            "Message:\n$message\n";
+        $stmt->execute();
 
+        header('Location: /contact');
+    }
 
-        if(mail($to, $subject, $body, $headers)){
-            echo 'Message sent successfully';
-        } else{
-            echo 'Message sending failed';
-        }
+    public function list(): void
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM messages");
+        $stmt->execute();
+        $messages = $stmt->fetchAll();
+
+        $content = __DIR__ . '/../view/list.php';
+        include __DIR__ . '/../view/layout.php';
     }
 }

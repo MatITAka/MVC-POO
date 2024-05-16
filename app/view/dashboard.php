@@ -260,15 +260,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2" href="#">
+                            <a class="nav-link d-flex align-items-center gap-2" href="/addProducts">
                                 <svg class="bi"><use xlink:href="#cart"/></svg>
                                 Products
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2" href="#">
+                            <a class="nav-link d-flex align-items-center gap-2" href="/contactList">
                                 <svg class="bi"><use xlink:href="#people"/></svg>
-                                Customers
+                                Contact
                             </a>
                         </li>
                         <li class="nav-item">

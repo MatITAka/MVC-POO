@@ -1,3 +1,13 @@
+<?php
+session_start();
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null; // Check if $_SESSION['role'] is set
+if ($role === 'admin'):
+    ?>
+<?php endif; ?>
+
+
+
+
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
@@ -19,6 +29,7 @@
                         <div class="form-group mt-3">
                             <a href="/forgot-password" class="btn btn-link btn-block">Forgot password?</a>
                         </div>
+
 
                         <div class="alert alert-danger mt-3"
                             <?php if (!isset($_SESSION['login_error'])) {
@@ -60,6 +71,14 @@
                         <div class="form-group mt-3">
                             <input type="submit" value="Register" class="btn btn-primary btn-block">
                         </div>
+
+                        <?php if ($_SESSION['role'] === 'admin'): ?>
+                            <div>
+                                <label for="role">Admin:</label>
+                                <input type="checkbox" id="role" name="role" value="admin">
+                            </div>
+                        <?php endif; ?>
+
                         <div class="alert alert-danger mt-3"
                             <?php if (!isset($_SESSION['error'])) {
                                 echo 'style="display: none;"';

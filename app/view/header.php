@@ -23,22 +23,22 @@
 
                 <li class="nav-item">
 
-                    <?php if (isset($_SESSION['username'])): ?>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                         <a class="nav-link" href="/dashboard">Dashboard 📈</a>
                     <?php else: ?>
-
+                        <!-- You can put something here if you want something to be displayed when the user is not an admin -->
                     <?php endif; ?>
 
                 </li>
 
                 <li class="nav-item">
 
-                    <?php if (isset($_SESSION['username'])): ?>
-                        <a class="nav-link" href="/order">Order 📦</a>
-                    <?php else: ?>
+                    <a class="nav-link" href="/products">Products 📦</a>
 
-                    <?php endif; ?>
+                </li>
 
+                <li>
+                    <a class="nav-link" href="/cart">Cart 🛒</a>
                 </li>
 
 

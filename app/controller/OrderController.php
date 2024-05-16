@@ -3,22 +3,22 @@
 namespace App\controller;
 
 use PDOException;
-
 class OrderController
 {
-    public function index()
+    public function index(): void
     {
-        session_start();
+      ;
         if (isset($_SESSION['username'])) {
+            ob_start();
             $content = __DIR__ . '/../view/order.php';
             include __DIR__ . '/../view/layout.php';
+            ob_end_flush();
         } else {
             header('Location: /login');
         }
 
     }
-
-    public function createOrder()
+    public function createOrder(): void
     {
         if (isset($_POST['submit'])) {
             $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
@@ -38,6 +38,4 @@ class OrderController
             }
         }
     }
-
-
 }

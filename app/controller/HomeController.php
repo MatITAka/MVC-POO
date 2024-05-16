@@ -4,7 +4,7 @@ namespace App\controller;
 
 class HomeController
 {
-    public function index()
+    public function index(): void
     {
         session_start();
         $content = __DIR__ . '/../view/home.php';

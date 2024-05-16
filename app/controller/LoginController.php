@@ -4,6 +4,7 @@ namespace App\controller;
 
 use App\model\LoginModel;
 use Exception;
+use JetBrains\PhpStorm\NoReturn;
 
 class LoginController
 {
@@ -14,13 +15,13 @@ class LoginController
         $this->model = $model;
     }
 
-    public function index()
+    public function index(): void
     {
         $content = __DIR__ . '/../view/login.php';
         include __DIR__ . '/../view/layout.php';
     }
 
-    public function login()
+    public function login(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -44,13 +45,14 @@ class LoginController
         }
     }
 
-    public function logout(){
+    #[NoReturn] public function logout(): void
+    {
         session_destroy();
         header('Location: /');
         exit;
     }
 
-    public function forgotPassword()
+    public function forgotPassword(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);

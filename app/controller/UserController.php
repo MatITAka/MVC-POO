@@ -8,7 +8,7 @@ class UserController
     public function index()
     {
         session_start();
-        if (isset($_SESSION['username'])) {
+        if ($_SESSION['role'] == 'admin') {
             $orders = $this->getOrders();
             $content = __DIR__ . '/../view/dashboard.php';
             include __DIR__ . '/../view/layout.php';
