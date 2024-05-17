@@ -18,6 +18,7 @@
                                 <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                                     <!-- Data -->
                                     <p><strong><?php echo $product['product_name']; ?></strong></p>
+                                    <p>Quantity: <?php echo $product['quantity']; ?></p>
                                     <form method="post" action="/cart/remove/<?php echo $product['product_id']; ?>">
                                         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init title="Remove item">
                                             <i class="fas fa-trash"></i>
@@ -36,9 +37,9 @@
 
 
                                         <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 me-2"
-                                                onclick="var input = this.parentNode.querySelector('input[type=number]');
+                                                onclick="const input = this.parentNode.querySelector('input[type=number]');
                                                     input.stepDown();
-                                                    if (input.value == 0) {
+                                                    if (input.value === 0) {
                                                     removeFromCart(<?php echo $product['product_id']; ?>);
                                                     }">
                                             <i class="fas fa-minus"></i>
@@ -47,7 +48,7 @@
 
 
                                         <div data-mdb-input-init class="form-outline">
-                                            <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
+                                            <input id="form1" min="0" name="quantity" value=<?php echo $product['quantity'];?> type="number" class="form-control" />
                                             <label class="form-label" for="form1">Quantity</label>
                                         </div>
 
@@ -60,8 +61,7 @@
 
                                     <!-- Price -->
                                     <p class="text-start text-md-center">
-                                        <strong>$<?php echo $product['product_price']; ?></strong>
-                                    </p>
+                                    <p>Price: $<?php echo $product['product_price'] * $product['quantity']; ?></p>
                                     <!-- Price -->
                                 </div>
                             </div>
@@ -108,4 +108,3 @@
         });
     }
 </script>
-<!-- ... -->

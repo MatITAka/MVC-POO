@@ -19,11 +19,12 @@ class CartController
         $cartProducts = [];
         $totalPrice = 0;
         if (isset($_SESSION['cart'])) {
-            foreach ($_SESSION['cart'] as $productId) {
+            foreach ($_SESSION['cart'] as $productId => $productData) {
                 $product = $this->productModel->getProductById($productId);
                 if ($product) {
+                    $product['quantity'] = $productData['quantity'];
                     $cartProducts[] = $product;
-                    $totalPrice += $product['product_price'];
+                    $totalPrice += $product['product_price'] * $productData['quantity'];
                 }
             }
         }

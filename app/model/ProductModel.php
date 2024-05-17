@@ -52,18 +52,28 @@ class ProductModel
         }
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         if ($id !== false && $id !== null) {
-            $_SESSION['cart'][] = $id;
+            if (isset($_SESSION['cart'][$id])) {
+                // The product is already in the cart, so increment the quantity
+                $_SESSION['cart'][$id]['quantity']++;
+            } else {
+                // The product is not in the cart, so add a new entry with a quantity of 1
+                $product = $this->getProductById($id);
+                $_SESSION['cart'][$id] = [
+                    'product_id' => $id,
+                    'product_name' => $product['product_name'],
+                    'product_price' => $product['product_price'],
+                    'quantity' => 1
+                ];
+            }
         }
         header('Location: /products');
     }
-
     public function removeFromCart($id): void
     {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         if ($id !== false && $id !== null) {
-            $index = array_search($id, $_SESSION['cart']);
-            if ($index !== false) {
-                unset($_SESSION['cart'][$index]);
+            if (isset($_SESSION['cart'][$id])) {
+                unset($_SESSION['cart'][$id]);
             }
         }
         header('Location: /cart');
