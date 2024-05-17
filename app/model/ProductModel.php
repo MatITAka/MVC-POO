@@ -79,4 +79,36 @@ class ProductModel
         header('Location: /cart');
     }
 
+    public function updateProduct($id, $name, $price, $description, $type): void
+    {
+        $sql = "UPDATE products SET product_name = :name, product_price = :price, product_desc = :description, product_type = :type WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+
+        if ($stmt === false) {
+            throw  new Exception('Failed to prepare SQL statement');
+        }
+
+        $stmt->execute([
+            'id' => $id,
+            'name' => $name,
+            'price' => $price,
+            'description' => $description,
+            'type' => $type
+        ]);
+    }
+
+    public function deleteProduct($id): void
+    {
+        $sql = "DELETE FROM products WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+
+        if ($stmt === false) {
+            throw  new Exception('Failed to prepare SQL statement');
+        }
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
+
 }
