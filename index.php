@@ -64,10 +64,9 @@ $router->post('/paymentRequest', [$paymentController, 'payRequest']);
 $router->get('/paymentSuccess', [$paymentController, 'paymentSuccess']);
 $router->get('/paymentFail', [$paymentController, 'paymentFail']);
 $router->get('/updateProduct', [$productController, 'updateProductIndex']);
-$router->post('/updateProduct', [$productController, 'updateProduct']);
-$router->post('/deleteProduct', [$productController, 'deleteProduct']);
+$router->post('/updateProduct/{id}', [$productController, 'updateProduct']);
 
-
+$router->post('/deleteProduct/{id}', [$productController, 'deleteProduct']);
 
 $router->post('/cart/add/{id}', function($id) use ($productModel) {
     $productModel->addToCart($id);
@@ -75,6 +74,8 @@ $router->post('/cart/add/{id}', function($id) use ($productModel) {
 $router->post('/cart/remove/{id}', function($id) use ($productModel) {
     $productModel->removeFromCart($id);
 });
+
+
 
 
 

@@ -76,6 +76,8 @@
 </style>
 
 
+
+
 <h1>You need some changes ? </h1>
 
 <div>
@@ -99,10 +101,12 @@
                     <td><?= $product['product_desc'] ?></td>
                     <td><?= $product['product_type'] ?></td>
                     <td>
-                        <button id="myBtn" class="btn btn-primary" onclick="openModal(<?= $product['product_id'] ?>)">Edit</button>
+                        <button class="btn btn-primary" onclick="openModal(<?= $product['product_id'] ?>)">Edit</button>
                     </td>
                     <td>
-                        <a  class="btn btn-danger" href="/deleteProduct">Delete</a>
+                        <form action="/deleteProduct/<?= $product['product_id'] ?>" method="post">
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
                     </td>
                 </tr>
             <?php }
@@ -118,8 +122,8 @@
         <div class="modal-content">
 
             <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
-            <form action="/updateProduct" method="post">
+
+            <form action="/updateProduct/<?= $product['product_id'] ?>" method="post">
                 <?php
                 if ($product !== false && array_key_exists('product_name', $product) && array_key_exists('product_price', $product) && array_key_exists('product_desc', $product) && array_key_exists('product_type', $product)) { ?>
                     <label for="name">Product Name</label>
@@ -138,6 +142,14 @@
 
 <script>
 
+    const products = <?= json_encode($products) ?>;
+
+    // Get the modal
+    const modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+
     function openModal(productId) {
         // Get the product data
         const product = products.find(product => product.product_id === productId);
@@ -148,52 +160,19 @@
         document.getElementById('description').value = product.product_desc;
         document.getElementById('type').value = product.product_type;
 
+        document.querySelector('.modal-content form').action = "/updateProduct/" + productId;
         // Open the modal
         modal.style.display = "block";
     }
-
-    function deleteProduct(productId) {
-        // Send a request to delete the product
-        fetch(`/deleteProduct?id=${productId}`, {
-            method: 'POST',
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response
-                if (data.success) {
-                    // Remove the product from the table
-                    const row = document.getElementById(`product-${productId}`);
-                    row.parentNode.removeChild(row);
-                } else {
-                    // Show an error message
-                    alert('Failed to delete product');
-                }
-            });
-    }
-
-    // Get the modal
-    const modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    const btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    const span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-      modal.style.display = "none";
+        modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
     }
     </script>

@@ -61,9 +61,8 @@
         /**
          * @throws \Exception
          */
-        public function updateProduct() :void {
-            $productId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-            $product = $this->productModel->getProductById($productId);
+        public function updateProduct($id) :void {
+            $product = $this->productModel->getProductById($id);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -71,22 +70,21 @@
                 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
                 $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
 
-                $this->productModel->updateProduct($productId, $name, $price, $description, $type);
+                $this->productModel->updateProduct($id, $name, $price, $description, $type);
 
-                header('Location: /updateProduct?id=' . $productId);
+                header('Location: /updateProduct');
             }
         }
 
         /**
          * @throws \Exception
          */
-        public function deleteProduct() :void {
-            $productId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-            $this->productModel->deleteProduct($productId);
+        public function deleteProduct($id): void
+        {
+            $productId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+            $this->productModel->deleteProduct($id);
             header('Location: /updateProduct');
         }
-
-
 
 
     }
