@@ -7,7 +7,7 @@ use App\Controller\HomeController;
 
 class HomeControllerTest extends TestCase
 {
-    private $homeController;
+    private HomeController $homeController;
 
     protected function setUp(): void
     {

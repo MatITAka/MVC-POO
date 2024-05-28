@@ -47,7 +47,9 @@ class LoginController
 
     #[NoReturn] public function logout(): void
     {
+        echo "You have been logged out.";
         session_destroy();
+
         header('Location: /');
         exit;
     }
